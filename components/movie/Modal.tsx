@@ -32,7 +32,6 @@ export const MovieModal = ({
   const [selected, setSelected] = useState<number | null>(null);
 
   const onSearch = () => {
-    // TODO: add year to query
     const params = new URLSearchParams();
     params.set('search', search);
     if (year) {
@@ -83,7 +82,6 @@ export const MovieModal = ({
             display: 'flex',
             flexDirection: 'column',
             gap: '1rem',
-            minWidth: '40vw', // TODO: mobile styles
           }}
         >
           {error && <Alert severity="error">{error}</Alert>}
