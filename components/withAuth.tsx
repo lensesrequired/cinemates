@@ -26,7 +26,7 @@ export default function withAuth(
     const auth = await getAuth();
 
     if (!noRedirect && !auth.authed) {
-      redirect('/');
+      redirect('/login');
     }
 
     return <Component {...props} {...auth} />;
