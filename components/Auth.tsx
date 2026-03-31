@@ -76,7 +76,7 @@ export const Auth = ({
                 decodeURIComponent(redirectTo || '') || '/',
               );
             } else {
-              window.location.reload();
+              window.location.assign('/');
             }
           } else if (ok && data.success) {
             window.location.assign(

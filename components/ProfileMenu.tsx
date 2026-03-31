@@ -3,7 +3,9 @@
 import { AuthProps } from '@/types';
 import Link from 'next/link';
 import { MouseEvent, useState } from 'react';
+import LoginIcon from '@mui/icons-material/Login';
 import Logout from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
 import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
 import {
   Avatar,
@@ -16,7 +18,7 @@ import {
   MenuItem,
 } from '@mui/material';
 
-export const ProfileMenu = ({ displayName }: AuthProps) => {
+export const ProfileMenu = ({ authed, displayName }: AuthProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -39,7 +41,7 @@ export const ProfileMenu = ({ displayName }: AuthProps) => {
           aria-expanded={open ? 'true' : undefined}
         >
           <Avatar sx={{ width: 32, height: 32 }}>
-            {displayName.slice(0, 1).toUpperCase()}
+            {authed ? displayName.slice(0, 1).toUpperCase() : <PersonIcon />}
           </Avatar>
         </IconButton>
       </Box>
@@ -52,27 +54,42 @@ export const ProfileMenu = ({ displayName }: AuthProps) => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
-          <Link href={'/'}>
-            <ListItem sx={{ py: 0, px: 1 }}>
-              <ListItemIcon>
-                <PlaylistPlayIcon fontSize="small" />
-              </ListItemIcon>
-              My Lists
-            </ListItem>
-          </Link>
-        </MenuItem>
-        <Divider />
-        <MenuItem>
-          <Link href={'/logout'}>
-            <ListItem sx={{ py: 0, px: 1 }}>
-              <ListItemIcon>
-                <Logout fontSize="small" />
-              </ListItemIcon>
-              Logout
-            </ListItem>
-          </Link>
-        </MenuItem>
+        {authed ? (
+          <>
+            <MenuItem>
+              <Link href={'/'}>
+                <ListItem sx={{ py: 0, px: 1 }}>
+                  <ListItemIcon>
+                    <PlaylistPlayIcon fontSize="small" />
+                  </ListItemIcon>
+                  My Lists
+                </ListItem>
+              </Link>
+            </MenuItem>
+            <Divider />
+            <MenuItem>
+              <Link href={'/logout'}>
+                <ListItem sx={{ py: 0, px: 1 }}>
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  Logout
+                </ListItem>
+              </Link>
+            </MenuItem>
+          </>
+        ) : (
+          <MenuItem>
+            <Link href={'/login'}>
+              <ListItem sx={{ py: 0, px: 1 }}>
+                <ListItemIcon>
+                  <LoginIcon fontSize="small" />
+                </ListItemIcon>
+                Login
+              </ListItem>
+            </Link>
+          </MenuItem>
+        )}
       </Menu>
     </>
   );

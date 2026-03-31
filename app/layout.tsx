@@ -52,7 +52,7 @@ async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
                   🍿 CineMates
                 </h1>
               </Link>
-              {authProps.authed && <ProfileMenu {...authProps} />}
+              <ProfileMenu {...authProps} />
             </Paper>
             {children}
           </div>
